@@ -150,7 +150,7 @@ For each state of the service FSM:
 
 * A [`Behaviour`](https://docs.autonolas.network/open-autonomy/key_concepts/abci_app_async_behaviour): The class that executes the proactive action at each state. For example, cast a vote for a keeper, print a message on screen, send a transaction on a blockchain, etc.
 * A [`Payload`](https://docs.autonolas.network/open-autonomy/key_concepts/abci_app_async_behaviour): The message exchanged between agents in the state to indicate completion of the action. For example, a message containing what keeper the agent is voting for.
-* A [`Round`](https://docs.autonolas.network/open-autonomy/key_concepts/abci_app_abstract_round): The class that processes the input from the consensus gadget and outputs the appropriate events to make the next transition. For example, output the event DONE when all agents have cast they vote for a keeper.
+* A [`Round`](https://docs.autonolas.network/open-autonomy/key_concepts/abci_app_abstract_round): The class that processes the input from the consensus gadget and outputs the appropriate events to make the next transition. For example, output the event DONE when all agents have cast their vote for a keeper.
 
 Additionally, the following two classes:
 
