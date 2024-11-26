@@ -6,13 +6,12 @@ description: Hello World ABCI application.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  README.md: bafybeidrjtykhovnccj3sovugdn4r3tszuzv7h37vta6o35epi5qfzdpke
   __init__.py: bafybeibiblks3d3s3ditug4hfzl3ob3cibokcz4ofs7cbbsbqw5zzbtd3m
-  behaviours.py: bafybeiaai23italbrtlgpl7ie4pelhtrm6uqn773qap6jl5h4mj7fd553e
+  behaviours.py: bafybeigyiege7vs7kn766lzjd6kuyxknr4k4y4su3zbalun4wzqbgrgmpi
   dialogues.py: bafybeigabhaykiyzbluu4mk6bbrmqhzld2kyp32pg24bvjmzrrb74einwm
   fsm_specification.yaml: bafybeibsjhlpuigtbmtcusv4qrtebal23ylv2sulj6dolvln6fwlkjp23a
   handlers.py: bafybeieyq37quymqq6md3hi5bvynifnkx73bcvmzct6difyvdkbzj6abaq
-  models.py: bafybeifyc3dezez4wbyexuy7q4do2xwlfrvtcvwsxgvg5cldeyvyi6ofju
+  models.py: bafybeidym2ekwwlki2uyedtiw7ljzsobcwagcfimkhof7jlquwgtklftni
   payloads.py: bafybeiajaxhepvqsznhgadw24w4zumfpxcqysv7y4mdsnh5awvtvirpb3q
   rounds.py: bafybeidxkjo6us24fj46fwfxopbbd3njystt4nuqmgpvrmigestr36tkou
   tests/__init__.py: bafybeibpuwe63mjjwnaanx7wdw63reh6qa5xdtjxdf75o3nksvjercte4y
@@ -97,6 +96,7 @@ models:
           version: {}
         voting_power: '10'
       hello_world_message: HELLO_WORLD!
+      owner_address: 0x0000000000000000000000000000000000000000
       keeper_timeout: 30.0
       max_attempts: 10
       max_healthcheck: 120

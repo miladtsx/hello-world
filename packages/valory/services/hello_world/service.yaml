@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeiapubcoersqnsnh3acia5hd7otzt7kjxekr6gkbrlumv6tkajl6jm
 fingerprint_ignore_patterns: []
-agent: valory/hello_world:0.1.0:bafybeihtmp45mbfs5tyzrgxfoimh552on6dif42ifqidifait3ej2m5zvq
+agent: valory/hello_world:0.1.0:bafybeifvnxuflxkpfop4bwhosfnd66mrjt4knv5mnuisckgvhpi5hvklgy
 number_of_agents: 4
 deployment: {}
 ---
@@ -32,6 +32,7 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_0:str:HELLO_WORLD! (from Agent 0)}
+        owner_address: ${OWNER_ADDRESS_STRING_0:str:0x0000000000000000000000000000000000000000}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -44,6 +45,7 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_1:str:HELLO_WORLD! (from Agent 1)}
+        owner_address: ${OWNER_ADDRESS_STRING_1:str:0x0000000000000000000000000000000000000001}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -56,6 +58,7 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_2:str:HELLO_WORLD! (from Agent 2)}
+        owner_address: ${OWNER_ADDRESS_STRING_2:str:0x0000000000000000000000000000000000000002}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -68,6 +71,7 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_3:str:HELLO_WORLD! (from Agent 3)}
+        owner_address: ${OWNER_ADDRESS_STRING_3:str:0x0000000000000000000000000000000000000003}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
