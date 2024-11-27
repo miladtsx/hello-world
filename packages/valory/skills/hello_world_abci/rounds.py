@@ -20,7 +20,7 @@
 
 from abc import ABC
 from enum import Enum
-from typing import Dict, List, Optional, Tuple, Type, cast
+from typing import Dict, FrozenSet, List, Optional, Tuple, Type, cast
 
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
@@ -35,6 +35,7 @@ from packages.valory.skills.abstract_round_abci.base import (
 )
 from packages.valory.skills.hello_world_abci.payloads import (
     CollectRandomnessPayload,
+    PrintCountPayload,
     PrintMessagePayload,
     RegistrationPayload,
     ResetPayload,
@@ -68,6 +69,15 @@ class SynchronizedData(
         return cast(
             List[str],
             self.db.get_strict("printed_messages"),
+        )
+
+    @property
+    def print_count(self) -> int:
+        """Get the print message rounds count."""
+
+        return cast(
+            int,
+            self.db.get("print_count", 0),
         )
 
 
@@ -147,6 +157,22 @@ class PrintMessageRound(CollectDifferentUntilAllRound, HelloWorldABCIAbstractRou
         return None
 
 
+class PrintCountRound(CollectSameUntilThresholdRound, HelloWorldABCIAbstractRound):
+    """A round that counts how many times the message has been printed."""
+
+    payload_class = PrintCountPayload
+    synchronized_data_class = SynchronizedData
+
+    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
+        """Process the end of the block."""
+        payload = list(self.collection.values())[0]
+        synchronized_data = self.synchronized_data.update(
+            print_count=cast(PrintCountPayload, payload).print_count,
+            synchronized_data_class=SynchronizedData,
+        )
+        return synchronized_data, Event.DONE
+
+
 class ResetAndPauseRound(CollectSameUntilThresholdRound, HelloWorldABCIAbstractRound):
     """A round that represents that consensus is reached (the final round)"""
 
@@ -188,7 +214,10 @@ class HelloWorldAbciApp(AbciApp[Event]):
         3. PrintMessageRound
             - done: 4.
             - round timeout: 0.
-        4. ResetAndPauseRound
+        4. PrintCountRound
+            - done: 5.
+            - round timeout: 0.
+        5. ResetAndPauseRound
             - done: 1.
             - no majority: 0.
             - reset timeout: 0.
@@ -218,8 +247,12 @@ class HelloWorldAbciApp(AbciApp[Event]):
             Event.ROUND_TIMEOUT: RegistrationRound,
         },
         PrintMessageRound: {
-            Event.DONE: ResetAndPauseRound,
+            Event.DONE: PrintCountRound,
             Event.ROUND_TIMEOUT: RegistrationRound,
+        },
+        PrintCountRound : {
+            Event.DONE : ResetAndPauseRound,
+            Event.ROUND_TIMEOUT: RegistrationRound
         },
         ResetAndPauseRound: {
             Event.DONE: CollectRandomnessRound,
@@ -231,3 +264,6 @@ class HelloWorldAbciApp(AbciApp[Event]):
         Event.ROUND_TIMEOUT: 30.0,
         Event.RESET_TIMEOUT: 30.0,
     }
+    cross_period_persisted_keys: FrozenSet[str] = frozenset(
+        [get_name(SynchronizedData.print_count)]
+    )
